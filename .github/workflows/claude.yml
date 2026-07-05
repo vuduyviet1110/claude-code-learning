@@ -1,0 +1,90 @@
+name: Claude Code
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+
+jobs:
+  claude:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Project Setup
+        run: |
+          npm ci
+          npx prisma generate
+          npx prisma migrate deploy
+          npm run dev:daemon
+        env:
+          DATABASE_URL: "file:./dev.db"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AUTH_SECRET: "ci-secret-do-not-use-in-prod"
+
+      - name: Run Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          custom_instructions: |
+            The project is already set up with all dependencies installed.
+            The server is already running at localhost:3000. Logs from it
+            are being written to logs.txt. If needed, you can query the
+            db with the 'sqlite3' cli (DATABASE_URL is file:./dev.db).
+            If needed, use the mcp__playwright set of tools to launch a
+            browser and interact with the app at localhost:3000.
+          mcp_config: |
+            {
+              "mcpServers": {
+                "playwright": {
+                  "command": "npx",
+                  "args": [
+                    "@playwright/mcp@latest",
+                    "--allowed-origins",
+                    "localhost:3000;cdn.tailwindcss.com;esm.sh"
+                  ]
+                }
+              }
+            }
+          allowed_tools: |
+            Bash(npm:*),
+            Bash(npx:*),
+            Bash(sqlite3:*),
+            Bash(cat:logs.txt),
+            Bash(tail:logs.txt),
+            Bash(grep:*),
+            Bash(find:*),
+            Bash(ls:*),
+            Read,
+            Edit,
+            Write,
+            Glob,
+            Grep,
+            mcp__playwright__browser_snapshot,
+            mcp__playwright__browser_click,
+            mcp__playwright__browser_type,
+            mcp__playwright__browser_navigate,
+            mcp__playwright__browser_close,
+            mcp__playwright__browser_press_key

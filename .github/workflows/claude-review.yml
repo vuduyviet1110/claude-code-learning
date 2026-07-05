@@ -1,0 +1,58 @@
+name: Claude PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Project Setup
+        run: |
+          npm ci
+          npx prisma generate
+          npx prisma migrate deploy
+        env:
+          DATABASE_URL: "file:./dev.db"
+
+      - name: Run Claude Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          custom_instructions: |
+            Review the proposed changes in this pull request.
+            Analyze the impact of modifications on the codebase.
+            Check for: correctness bugs, regressions, type safety,
+            Next.js App Router conventions, Prisma usage, and
+            security issues (auth, input validation, secrets).
+            Post a detailed report as a PR review comment.
+          allowed_tools: |
+            Read,
+            Glob,
+            Grep,
+            Bash(git:*),
+            Bash(npm:*),
+            Bash(npx:*),
+            Bash(ls:*),
+            Bash(cat:*),
+            Bash(grep:*),
+            Bash(find:*)
