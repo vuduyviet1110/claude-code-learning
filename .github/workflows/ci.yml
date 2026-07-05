@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "file:./dev.db"
+
+      - name: Lint
+        run: npm run lint
+        env:
+          DATABASE_URL: "file:./dev.db"
+
+      - name: Test
+        run: npm test -- --run
+        env:
+          DATABASE_URL: "file:./dev.db"
+
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: "file:./dev.db"
+          # Mock provider is fine for CI build (no real API key needed)
+          ANTHROPIC_API_KEY: ""
+          AUTH_SECRET: "ci-secret-do-not-use-in-prod"
