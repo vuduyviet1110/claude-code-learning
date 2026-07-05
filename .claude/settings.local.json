@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "WebFetch(domain:nhic.vn)",
+      "WebFetch(domain:file.medinet.gov.vn)",
+      "Bash(docker exec prod2 *)",
+      "Bash(file *)",
+      "Bash(cmd.exe /c 'dir \"\\\\\\\\wsl.localhost\\\\Ubuntu\\\\home\\\\viet\\\\projects\\\\iCare\\\\.claude\\\\skills\" /AL /Q 2>&1')",
+      "Skill(keybindings-help)",
+      "Bash(npx tsc *)",
+      "PowerShell(wsl -d Ubuntu -e bash -c \"cd /home/viet/projects/uigen && npx tsc --noEmit 2>&1\")",
+      "PowerShell(wsl -d Ubuntu -e bash -c \"export PATH=\\\\`$PATH:/home/viet/.nvm/versions/node/v22.0.0/bin; cd /home/viet/projects/uigen; npx tsc --noEmit 2>&1\")",
+      "PowerShell(wsl -d Ubuntu -e bash -c 'which node; which npx; ls /home/viet/.nvm/versions/node/')",
+      "PowerShell(wsl -d Ubuntu -e bash -c 'export PATH=/home/viet/.nvm/versions/node/v24.16.0/bin:/mnt/c/nvm4w/nodejs:$PATH; which npx; cd /home/viet/projects/uigen; npx tsc --noEmit 2>&1')",
+      "Bash(npx next *)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot"
+    ]
+  },
+  "enabledPlugins": {}
+}

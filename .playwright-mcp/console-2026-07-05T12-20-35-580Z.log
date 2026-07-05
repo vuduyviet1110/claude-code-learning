@@ -1,0 +1,34 @@
+[     326ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_2ce9398a._.js:16383
+[   98241ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_2ce9398a._.js:16383
+[   98602ms] [LOG] [Fast Refresh] done in NaNms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js:14891
+[  243298ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/api/chat:0
+[  243327ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ about:srcdoc:0
+[  243606ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/:63
+[  244981ms] [ERROR] TypeError: Cannot read properties of undefined (reading 'map')
+    at PricingCard (blob:http://localhost:3000/b6c4ed9c-9250-49d7-b985-ad2bd0de1d2b:29:26)
+    at ze (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:47846)
+    at _c (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:70466)
+    at av (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:80779)
+    at qv (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:116269)
+    at $h (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:115351)
+    at Jf (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:115189)
+    at Dv (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:112026)
+    at Rv (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:123678)
+    at I (https://esm.sh/scheduler@0.27.0/es2022/scheduler.mjs:3:2059) @ https://esm.sh/react-dom@19.2.7/es2022/client.mjs:9
+[  244982ms] [ERROR] Error caught by boundary: TypeError: Cannot read properties of undefined (reading 'map')
+    at PricingCard (blob:http://localhost:3000/b6c4ed9c-9250-49d7-b985-ad2bd0de1d2b:29:26)
+    at ze (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:47846)
+    at _c (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:70466)
+    at av (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:80779)
+    at qv (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:116269)
+    at $h (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:115351)
+    at Jf (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:115189)
+    at Dv (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:112026)
+    at Rv (https://esm.sh/react-dom@19.2.7/es2022/client.mjs:10:123678)
+    at I (https://esm.sh/scheduler@0.27.0/es2022/scheduler.mjs:3:2059) {componentStack: 
+    at PricingCard (blob:http://localhost:3000/b6…2b:3:3)
+    at ErrorBoundary (about:srcdoc:104:9)} @ about:srcdoc:112
+[  404516ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js:15027
+[  404551ms] [LOG] [Fast Refresh] done in 17ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js:14891
+[  404771ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js:15027
+[  404988ms] [LOG] [Fast Refresh] done in 318ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js:14891
